@@ -24,7 +24,10 @@ body {
 }
 
 .start-container {
-  display: none;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
 .header-container {
@@ -65,4 +68,24 @@ body {
 
 .question-id {
   margin-left: 0.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.btn {
+  /* position: center;
+  display: block; */
+  /* margin: 0 auto; */
+  padding: 1.6em 5em;
+  /* max-width: 20em; */
+  font-size: 1rem;
+  line-height: 1;
+  /* text-align: center; */
+  /* text-decoration: none; */
+  background-color: #2da3ee;
+  border-radius: 3px;
+  /* box-shadow: inset 0 0 7px 0 rgba(white, 0.5);
+  background-image: (linear-gradient(#5fc1ff 0%, #0088de 100%)); */
 }

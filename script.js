@@ -1,4 +1,26 @@
+var startButton = document.querySelector(".btn");
+var startContainer = document.querySelector(".start-container");
+var main = document.querySelector(".main-container");
+var questionID = document.querySelector(".question-id");
+var questionText = document.querySelector(".question-text");
+var questionHeader = document.querySelector(".question-header");
 var timerEl = document.querySelector(".timer");
+var ul = document.querySelector("ul");
+
+startButton.addEventListener("click", start);
+
+function start() {
+  startContainer.setAttribute("style", "display:none;");
+  main.classList.remove("hidden");
+  questionID.textContent = questions[count].id;
+  questionText.textContent = questions[count].question;
+  for (var i = 0; i < 4; i++) {
+    var li = document.createElement("li");
+    ul.appendChild(li);
+    li.innerHTML += Object.keys(questions[count].answers[i]);
+  }
+  countdown();
+}
 
 function countdown() {
   var timeLeft = 30;
@@ -15,8 +37,6 @@ function countdown() {
     }
   }, 1000);
 }
-
-countdown();
 
 const questions = [
   {
@@ -76,21 +96,6 @@ const questions = [
 
 var count = 0;
 
-var questionID = document.querySelector(".question-id");
-var questionText = document.querySelector(".question-text");
-var questionHeader = document.querySelector(".question-header");
-
-questionID.textContent = questions[count].id;
-questionText.textContent = questions[count].question;
-
-var ul = document.querySelector("ul");
-
-for (var i = 0; i < 4; i++) {
-  var li = document.createElement("li");
-  ul.appendChild(li);
-  li.innerHTML += Object.keys(questions[count].answers[i]);
-}
-
 const runQuestions = () => {
   console.log("count", count);
   console.log("length", questions.length);
@@ -101,6 +106,17 @@ const runQuestions = () => {
     ul.textContent = "";
   } else {
     handleQuestion();
+    var listItems = document.querySelectorAll("li");
+    handleScores();
+    console.log("scores", scores);
+  }
+};
+
+var scores = 0;
+
+const handleScores = () => {
+  if (questions[count].answers[questionText]) {
+    scores += 5;
   }
 };
 
@@ -119,3 +135,4 @@ const handleQuestion = () => {
 };
 
 ul.addEventListener("click", runQuestions);
+listItems.addEventListener("click", handleScores);
