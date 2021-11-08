@@ -78,6 +78,7 @@ var count = 0;
 
 var questionID = document.querySelector(".question-id");
 var questionText = document.querySelector(".question-text");
+var questionHeader = document.querySelector(".question-header");
 
 questionID.textContent = questions[count].id;
 questionText.textContent = questions[count].question;
@@ -90,8 +91,22 @@ for (var i = 0; i < 4; i++) {
   li.innerHTML += Object.keys(questions[count].answers[i]);
 }
 
+const runQuestions = () => {
+  console.log("count", count);
+  console.log("length", questions.length);
+  if (count >= questions.length - 1) {
+    questionID.textContent = "";
+    questionText.textContent = "";
+    questionHeader.textContent = "";
+    ul.textContent = "";
+  } else {
+    handleQuestion();
+  }
+};
+
 const handleQuestion = () => {
   count += 1;
+  console.log(count);
   ul.textContent = "";
   questionID.textContent = questions[count].id;
   questionText.textContent = questions[count].question;
@@ -103,4 +118,4 @@ const handleQuestion = () => {
   }
 };
 
-ul.addEventListener("click", handleQuestion);
+ul.addEventListener("click", runQuestions);
