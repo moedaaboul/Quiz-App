@@ -6,6 +6,8 @@ var questionText = document.querySelector(".question-text");
 var questionHeader = document.querySelector(".question-header");
 var timerEl = document.querySelector(".timer");
 var ul = document.querySelector("ul");
+var score = document.querySelector(".score");
+var end = document.querySelector(".end-container");
 
 startButton.addEventListener("click", start);
 ul.addEventListener("click", listClick);
@@ -51,6 +53,7 @@ function countdown() {
       // Calls function to show message
       clearInterval(timeInterval);
       timerEl.innerHTML = "-";
+      gameover();
     }
   }, 1000);
 }
@@ -112,16 +115,19 @@ const runQuestions = () => {
   console.log("count", count);
   console.log("length", questions.length);
   if (count >= questions.length - 1) {
-    questionID.textContent = "";
-    questionText.textContent = "";
-    questionHeader.textContent = "";
-    ul.textContent = "";
+    gameover();
   } else {
     handleQuestion();
     var listItems = document.querySelectorAll("li");
     // handleScores();
     console.log("scores", scores);
   }
+};
+
+const gameover = () => {
+  main.textContent = "";
+  end.classList.remove("hidden");
+  score.textContent = scores;
 };
 
 var scores = 0;
