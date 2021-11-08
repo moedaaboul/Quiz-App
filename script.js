@@ -30,13 +30,18 @@ function listClick(event) {
   console.log("content", content);
   if (questions[count].answers[content]) {
     scores += 5;
+  } else if (timeLeft > 5) {
+    timeLeft -= 5;
+    clearInterval(timeInterval);
+    countdown();
+  } else {
+    gameover();
   }
   console.log("scores", scores);
 }
+var timeLeft = 30;
 
 function countdown() {
-  var timeLeft = 30;
-
   // the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
     //
