@@ -40,3 +40,29 @@ body {
 .timer {
   margin-left: 0.5rem;
 }
+
+.question-container,
+.answers-container {
+  margin: 5rem;
+}
+
+.answers-container li {
+  border: 0.1rem solid black;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  list-style: none;
+}
+
+.answers-container li:hover {
+  opacity: 0.5;
+  font-size: bold;
+}
+
+.question {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.question-id {
+  margin-left: 0.5rem;
+}

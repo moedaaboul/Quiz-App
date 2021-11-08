@@ -3,10 +3,9 @@ var timerEl = document.querySelector(".timer");
 function countdown() {
   var timeLeft = 30;
 
-  // TODO: Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+  // the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function () {
     //
-    // YOUR CODE HERE
     timeLeft--;
     timerEl.innerHTML = timeLeft;
     if (timeLeft === 0) {
@@ -21,7 +20,7 @@ countdown();
 
 const questions = [
   {
-    id: 0,
+    id: 1,
     question: "Commonly used data types DO NOT include:",
     answers: [
       { strings: false },
@@ -31,7 +30,7 @@ const questions = [
     ],
   },
   {
-    id: 1,
+    id: 2,
     question:
       "The condition in an if/ else statement is enclosed within ____.:",
     answers: [
@@ -42,7 +41,7 @@ const questions = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     question: "Arrays in JavaScript can be used to store:",
     answers: [
       { "numbers and strings": false },
@@ -52,7 +51,7 @@ const questions = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     question:
       "String values must be enclosed within ____ when being assigned to variables.",
     answers: [
@@ -63,7 +62,7 @@ const questions = [
     ],
   },
   {
-    id: 4,
+    id: 5,
     question:
       "A very useful tool used during development and debugging for printing content to the debugger is:",
     answers: [
@@ -74,3 +73,34 @@ const questions = [
     ],
   },
 ];
+
+var count = 0;
+
+var questionID = document.querySelector(".question-id");
+var questionText = document.querySelector(".question-text");
+
+questionID.textContent = questions[count].id;
+questionText.textContent = questions[count].question;
+
+var ul = document.querySelector("ul");
+
+for (var i = 0; i < 4; i++) {
+  var li = document.createElement("li");
+  ul.appendChild(li);
+  li.innerHTML += Object.keys(questions[count].answers[i]);
+}
+
+const handleQuestion = () => {
+  count += 1;
+  ul.textContent = "";
+  questionID.textContent = questions[count].id;
+  questionText.textContent = questions[count].question;
+
+  for (var i = 0; i < 4; i++) {
+    var li = document.createElement("li");
+    ul.appendChild(li);
+    li.innerHTML += Object.keys(questions[count].answers[i]);
+  }
+};
+
+ul.addEventListener("click", handleQuestion);
