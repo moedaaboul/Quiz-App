@@ -10,44 +10,47 @@ var score = document.querySelector(".score");
 var end = document.querySelector(".end-container");
 
 startButton.addEventListener("click", start);
-ul.addEventListener("click", listClick);
 
 function start() {
   startContainer.setAttribute("style", "display:none;");
   main.classList.remove("hidden");
+  generateQuestion();
+  countdown();
+}
+
+function generateQuestion() {
   questionID.textContent = questions[count].id;
   questionText.textContent = questions[count].question;
   for (var i = 0; i < 4; i++) {
     var li = document.createElement("li");
     ul.appendChild(li);
     li.innerHTML += Object.keys(questions[count].answers)[i];
+    li.addEventListener("click", listListener);
+    li.addEventListener("click", runQuestions);
   }
-  countdown();
 }
 
-function listClick(event) {
+function listListener(event) {
   var element = event.target;
   var content = element.textContent;
-  console.log("element", element);
-  console.log("content", content);
   if (questions[count].answers[content]) {
     scores += 5;
   } else {
     timeLeft -= 5;
   }
-  console.log("scores", scores);
 }
+
 var timeLeft = 30;
 
 function countdown() {
-  // the `setInterval()` method to call a function to be executed every 1 second
+  // setInterval() method used to create a timer moving every 1 second
   var timeInterval = setInterval(function () {
     timeLeft--;
     timerEl.innerHTML = timeLeft;
     if (timeLeft <= 0) {
       clearInterval(timeInterval);
       timerEl.innerHTML = "-";
-      gameover();
+      gameOver();
     }
   }, 1000);
 }
@@ -106,22 +109,17 @@ const questions = [
 var count = 0;
 
 const runQuestions = () => {
-  console.log("count", count);
-  console.log("length", questions.length);
   if (count >= questions.length - 1) {
     timeLeft = 0;
   } else {
-    handleQuestion();
-    var listItems = document.querySelectorAll("li");
-    // handleScores();
-    console.log("scores", scores);
+    nextQuestion();
   }
 };
 
 let contestant = "";
 var scoreArray = [];
 
-const gameover = () => {
+const gameOver = () => {
   var storedObject = JSON.parse(localStorage.getItem("scoreList"));
 
   if (storedObject !== null) {
@@ -139,28 +137,14 @@ const gameover = () => {
   };
 
   scoreArray.push(scoreList);
-
-  // set new submission to local storage
   localStorage.setItem("scoreList", JSON.stringify(scoreArray));
-
-  console.log(scoreList);
   return null;
 };
 
 var scores = 0;
 
-const handleQuestion = () => {
+const nextQuestion = () => {
   count += 1;
-  console.log(count);
   ul.textContent = "";
-  questionID.textContent = questions[count].id;
-  questionText.textContent = questions[count].question;
-
-  for (var i = 0; i < 4; i++) {
-    var li = document.createElement("li");
-    ul.appendChild(li);
-    li.innerHTML += Object.keys(questions[count].answers)[i];
-  }
+  generateQuestion();
 };
-
-ul.addEventListener("click", runQuestions);
