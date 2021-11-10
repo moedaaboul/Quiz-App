@@ -32,25 +32,19 @@ function listClick(event) {
   console.log("content", content);
   if (questions[count].answers[content]) {
     scores += 5;
-  } else if (timeLeft > 5) {
-    timeLeft -= 5;
-    clearInterval(timeInterval);
-    countdown();
   } else {
-    gameover();
+    timeLeft -= 5;
   }
   console.log("scores", scores);
 }
 var timeLeft = 30;
 
 function countdown() {
-  // the `setInterval()` method to call a function to be executed every 1000 milliseconds
+  // the `setInterval()` method to call a function to be executed every 1 second
   var timeInterval = setInterval(function () {
-    //
     timeLeft--;
     timerEl.innerHTML = timeLeft;
-    if (timeLeft === 0) {
-      // Calls function to show message
+    if (timeLeft <= 0) {
       clearInterval(timeInterval);
       timerEl.innerHTML = "-";
       gameover();
@@ -115,7 +109,7 @@ const runQuestions = () => {
   console.log("count", count);
   console.log("length", questions.length);
   if (count >= questions.length - 1) {
-    gameover();
+    timeLeft = 0;
   } else {
     handleQuestion();
     var listItems = document.querySelectorAll("li");
@@ -124,10 +118,33 @@ const runQuestions = () => {
   }
 };
 
+let contestant = "";
+var scoreArray = [];
+
 const gameover = () => {
+  var storedObject = JSON.parse(localStorage.getItem("scoreList"));
+
+  if (storedObject !== null) {
+    scoreArray = storedObject;
+  }
+
   main.textContent = "";
   end.classList.remove("hidden");
   score.textContent = scores;
+  contestant = prompt("Game over! Please enter your name");
+
+  var scoreList = {
+    firstName: contestant,
+    score: scores,
+  };
+
+  scoreArray.push(scoreList);
+
+  // set new submission to local storage
+  localStorage.setItem("scoreList", JSON.stringify(scoreArray));
+
+  console.log(scoreList);
+  return null;
 };
 
 var scores = 0;
