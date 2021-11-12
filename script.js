@@ -8,6 +8,8 @@ var timerEl = document.querySelector(".timer");
 var ul = document.querySelector("ul");
 var score = document.querySelector(".score");
 var end = document.querySelector(".end-container");
+var highscores = document.querySelector(".high-scores");
+var tableSection = document.querySelector(".table-body");
 
 startButton.addEventListener("click", start);
 
@@ -21,7 +23,8 @@ function start() {
 function generateQuestion() {
   questionID.textContent = questions[count].id;
   questionText.textContent = questions[count].question;
-  for (var i = 0; i < 4; i++) {
+  answersLength = Object.keys(questions[count].answers).length;
+  for (var i = 0; i < answersLength; i++) {
     var li = document.createElement("li");
     ul.appendChild(li);
     li.innerHTML += Object.keys(questions[count].answers)[i];
@@ -138,6 +141,7 @@ const gameOver = () => {
 
   scoreArray.push(scoreList);
   localStorage.setItem("scoreList", JSON.stringify(scoreArray));
+  generateHighScores();
   return null;
 };
 
@@ -147,4 +151,34 @@ const nextQuestion = () => {
   count += 1;
   ul.textContent = "";
   generateQuestion();
+};
+
+const generateHighScores = () => {
+  var storedObject = JSON.parse(localStorage.getItem("scoreList"));
+
+  // if (storedObject !== null) {
+  //   scoreArray = storedObject;
+  // }
+  console.log(storedObject);
+
+  // storedObject.forEach(function (value, index) {});
+
+  const byScore = storedObject.sort((a, b) => {
+    return b.score - a.score;
+  });
+
+  byScore.forEach(function (object, index) {
+    var tr = document.createElement("tr");
+    var rank = document.createElement("th");
+    var name = document.createElement("td");
+    var userScore = document.createElement("td");
+    rank.setAttribute("scope", "row");
+    rank.innerHTML = index + 1;
+    name.innerHTML = object.firstName;
+    userScore.innerHTML = object.score;
+    tr.appendChild(rank);
+    tr.appendChild(name);
+    tr.appendChild(userScore);
+    tableSection.appendChild(tr);
+  });
 };

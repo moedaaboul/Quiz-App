@@ -1,12 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;300;400;500;700;800&family=Source+Sans+Pro:wght@300;400;700&display=swap");
+
 html,
 body {
   font-size: 16px;
 }
 
+h1,
 h2,
 .timer {
   font-size: 1.5rem;
   font-weight: bold;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 * {
@@ -21,6 +25,7 @@ body {
 
 .question {
   font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .start-container {
@@ -52,13 +57,18 @@ body {
 .answers-container li {
   border: 0.1rem solid black;
   margin: 0.5rem;
-  padding: 0.5rem;
+  padding: 13px 10px;
   list-style: none;
+  background-color: rgb(5, 25, 45);
+  border-radius: 5px;
+  color: white;
+  font-family: "JetBrains Mono", monospace;
 }
 
 .answers-container li:hover {
   opacity: 0.5;
   font-size: bold;
+  background-color: rgb(6, 189, 252);
 }
 
 .question {
@@ -68,6 +78,18 @@ body {
 
 .question-id {
   margin-left: 0.5rem;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.question-text {
+  font-size: 1.5rem;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.end-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hidden {
@@ -88,4 +110,22 @@ body {
   border-radius: 3px;
   /* box-shadow: inset 0 0 7px 0 rgba(white, 0.5);
   background-image: (linear-gradient(#5fc1ff 0%, #0088de 100%)); */
+}
+
+.table {
+  width: 40%;
+  margin-bottom: 1rem;
+  color: #212529;
+  justify-content: center;
+}
+
+.table td,
+.table th {
+  padding: 1.5rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
 }
