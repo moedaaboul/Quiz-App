@@ -1,15 +1,20 @@
-var startButton = document.querySelector(".btn");
-var startContainer = document.querySelector(".start-container");
-var main = document.querySelector(".main-container");
-var questionID = document.querySelector(".question-id");
-var questionText = document.querySelector(".question-text");
-var questionHeader = document.querySelector(".question-header");
-var timerEl = document.querySelector(".timer");
-var ul = document.querySelector("ul");
-var score = document.querySelector(".score");
-var end = document.querySelector(".end-container");
-var highscores = document.querySelector(".high-scores");
-var tableSection = document.querySelector(".table-body");
+const startButton = document.querySelector(".btn");
+const startContainer = document.querySelector(".start-container");
+const main = document.querySelector(".main-container");
+const questionID = document.querySelector(".question-id");
+const questionText = document.querySelector(".question-text");
+const questionHeader = document.querySelector(".question-header");
+const timerEl = document.querySelector(".timer");
+const ul = document.querySelector("ul");
+const score = document.querySelector(".score");
+const end = document.querySelector(".end-container");
+const highscores = document.querySelector(".high-scores");
+const tableSection = document.querySelector(".table-body");
+const submitButton = document.querySelector("#submit");
+const finalScores = document.querySelector(".scores-container");
+const submitContainer = document.querySelector(".submit-container");
+const reload = document.querySelector("#go-back");
+const clearHistory = document.querySelector("#reset");
 
 startButton.addEventListener("click", start);
 
@@ -43,16 +48,16 @@ function listListener(event) {
   }
 }
 
-var timeLeft = 30;
+let timeLeft = 30;
 
 function countdown() {
   // setInterval() method used to create a timer moving every 1 second
-  var timeInterval = setInterval(function () {
+  let timeInterval = setInterval(function () {
     timeLeft--;
     timerEl.innerHTML = timeLeft;
     if (timeLeft <= 0) {
-      clearInterval(timeInterval);
       timerEl.innerHTML = "-";
+      clearInterval(timeInterval);
       gameOver();
     }
   }, 1000);
@@ -109,7 +114,7 @@ const questions = [
   },
 ];
 
-var count = 0;
+let count = 0;
 
 const runQuestions = () => {
   if (count >= questions.length - 1) {
@@ -120,32 +125,16 @@ const runQuestions = () => {
 };
 
 let contestant = "";
-var scoreArray = [];
+let scoreArray = [];
 
 const gameOver = () => {
-  var storedObject = JSON.parse(localStorage.getItem("scoreList"));
-
-  if (storedObject !== null) {
-    scoreArray = storedObject;
-  }
-
-  main.textContent = "";
+  main.classList.add("hidden");
   end.classList.remove("hidden");
+  submitContainer.classList.remove("hidden");
   score.textContent = scores;
-  contestant = prompt("Game over! Please enter your name");
-
-  var scoreList = {
-    firstName: contestant,
-    score: scores,
-  };
-
-  scoreArray.push(scoreList);
-  localStorage.setItem("scoreList", JSON.stringify(scoreArray));
-  generateHighScores();
-  return null;
 };
 
-var scores = 0;
+let scores = 0;
 
 const nextQuestion = () => {
   count += 1;
@@ -153,8 +142,29 @@ const nextQuestion = () => {
   generateQuestion();
 };
 
+submitButton.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  let contestant = document.querySelector("#user").value;
+
+  let storedObject = JSON.parse(localStorage.getItem("scoreList"));
+
+  if (storedObject !== null) {
+    scoreArray = storedObject;
+  }
+
+  let scoreList = {
+    firstName: contestant,
+    score: scores,
+  };
+
+  scoreArray.push(scoreList);
+  localStorage.setItem("scoreList", JSON.stringify(scoreArray));
+  generateHighScores();
+});
+
 const generateHighScores = () => {
-  var storedObject = JSON.parse(localStorage.getItem("scoreList"));
+  let storedObject = JSON.parse(localStorage.getItem("scoreList"));
 
   // if (storedObject !== null) {
   //   scoreArray = storedObject;
@@ -163,15 +173,15 @@ const generateHighScores = () => {
 
   // storedObject.forEach(function (value, index) {});
 
-  const byScore = storedObject.sort((a, b) => {
+  let byScore = storedObject.sort((a, b) => {
     return b.score - a.score;
   });
 
   byScore.forEach(function (object, index) {
-    var tr = document.createElement("tr");
-    var rank = document.createElement("th");
-    var name = document.createElement("td");
-    var userScore = document.createElement("td");
+    let tr = document.createElement("tr");
+    let rank = document.createElement("th");
+    let name = document.createElement("td");
+    let userScore = document.createElement("td");
     rank.setAttribute("scope", "row");
     rank.innerHTML = index + 1;
     name.innerHTML = object.firstName;
@@ -181,4 +191,16 @@ const generateHighScores = () => {
     tr.appendChild(userScore);
     tableSection.appendChild(tr);
   });
+
+  submitContainer.classList.add("hidden");
+  finalScores.classList.remove("hidden");
 };
+
+reload.addEventListener("click", function () {
+  location.reload();
+});
+
+clearHistory.addEventListener("click", function () {
+  window.localStorage.removeItem("scoreList");
+  // finalScores.classList.add("hidden");
+});
