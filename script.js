@@ -57,13 +57,18 @@ highscoreLink.addEventListener("click", viewScores);
 
 // Enables viewScores function upon the highscorelink click
 function viewScores() {
+  //ensures highscorelink function is not rendered twice with the if condition
   if (scoreClicks === 0) {
+    // hides both startContainer and main sections
     startContainer.setAttribute("style", "display:none;");
     main.classList.add("hidden");
+    // removes hidden class from end container to display high scores
     end.classList.remove("hidden");
     scoreLine.classList.add("hidden");
     generateHighScores();
+    // scoreClicks added by 1 to ensure function is not rendered twice
     scoreClicks++;
+    // clears time interval to stop countdown function from rendering
     clearInterval(timeInterval);
     timerEl.innerHTML = "-";
   }
@@ -71,22 +76,34 @@ function viewScores() {
 
 // Enables start() function upon the start button click to show main question screens
 function start() {
+  // start screen hidden, displays full header section that includes timer and intro to javascript headers
   startContainer.setAttribute("style", "display:none;");
   subHeader.classList.remove("hidden");
   timeContainer.classList.remove("hidden");
+  // displays main container that hosts questions and answers
   main.classList.remove("hidden");
+  // generate function is rendered to display questions
   generateQuestion();
+  // countdown function rendered to display answers
   countdown();
 }
 
 // Enables generateQuestion() function to populate new Question and Answer choices based on count variable
 function generateQuestion() {
+  // generateQuestion based on questions object index tracked through the count var
+  // displays question id from the questions object
   questionID.textContent = questions[count].id;
+  // displays question description from the questions object
   questionText.textContent = questions[count].question;
+  // progress bar width is based on completion variable
   progressBar.style.width = completion;
+  // pulls answers length for each separate question
   answersLength = Object.keys(questions[count].answers).length;
+  // displays feedback on whether the last answer was correct or wrong
   answerFeedback.textContent = feedback;
+  // listClicks var reset. ListClicks used to prevent multiple clicks for the same answer to prevent errors in scores and time penalties
   listClicks = 0;
+  // loop created to display list for each answer in the question list and adds event listener to each possible choice in the list
   for (var i = 0; i < answersLength; i++) {
     var li = document.createElement("li");
     ul.appendChild(li);
@@ -98,14 +115,18 @@ function generateQuestion() {
 
 // function to handleClick upon answer click by updating score, feedback and answer
 function handleClick(event) {
+  // ListClicks used to prevent multiple clicks for the same answer to prevent errors in scores and time penalties
   if (listClicks === 0) {
     var element = event.target;
     var content = element.textContent;
     listClicks++;
+    // checks whether answer clicked is truthy
     if (questions[count].answers[content]) {
+      // score increased with each correct answer and feedback stored in feedback var
       scores += 10;
       feedback = "Correct answer!";
     } else {
+      // score decreased with each incorrect answer and feedback stored in feedback var
       timeLeft -= 10;
       feedback = "Wrong answer!";
     }
@@ -117,6 +138,7 @@ function countdown() {
   timeInterval = setInterval(function () {
     timeLeft--;
     timerEl.innerHTML = timeLeft;
+    // timeLeft less than or equal to zero because time left might be less than zero if a time penalty was issued in the last few remaining seconds
     if (timeLeft <= 0) {
       timerEl.innerHTML = "-";
       clearInterval(timeInterval);
@@ -194,12 +216,13 @@ const gameOver = () => {
   score.textContent = scores;
 };
 
-// completion variable to reflect progress in the progress bar
+// completion variable initialised to store progress of 1 for rendering the first question in the progress bar
 let completion = 1 / questions.length;
 
 // next question function is a question counter by adding one to the count va
 const nextQuestion = () => {
   count += 1;
+  // completion variable updated based on count
   completion = ((count + 1) / questions.length) * 100 + "%";
   ul.textContent = "";
   generateQuestion();
@@ -217,17 +240,18 @@ const submitFunction = function (event) {
   if (storedObject !== null) {
     scoreArray = storedObject;
   }
-
+  // create object with the form's name input value and scores stored
   let scoreList = {
     firstName: contestant,
     score: scores,
   };
-
+  // push each score object to the array and save to local storage
   scoreArray.push(scoreList);
   localStorage.setItem("scoreList", JSON.stringify(scoreArray));
   generateHighScores();
 };
 
+// adds event listener to the sumbit button
 submitButton.addEventListener("click", submitFunction);
 
 // Generates high scores from local storage
@@ -236,12 +260,13 @@ const generateHighScores = () => {
 
   console.log(storedObject);
 
-  // storedObject.forEach(function (value, index) {});
+  // orders object using the sort method from highest to lowest score
 
   let byScore = storedObject.sort((a, b) => {
     return b.score - a.score;
   });
 
+  // create table elements and populate content from the ordered byScore var
   byScore.forEach(function (object, index) {
     let tr = document.createElement("tr");
     let rank = document.createElement("th");
@@ -256,6 +281,7 @@ const generateHighScores = () => {
     tr.appendChild(userScore);
     tableSection.appendChild(tr);
   });
+  // unhide finalscores table and add scoreClicks var by 1 to prevent view scores function from rendering twice
   submitContainer.classList.add("hidden");
   finalScores.classList.remove("hidden");
   scoreClicks++;

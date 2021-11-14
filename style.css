@@ -93,7 +93,7 @@ body {
 .answers-container li:hover {
   opacity: 0.5;
   font-size: bold;
-  background-color: rgb(6, 189, 252); /*blue*/
+  background-color: rgb(6, 189, 252);
 }
 
 /*sets flex direction to column on scores container*/
