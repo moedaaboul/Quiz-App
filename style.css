@@ -304,3 +304,7 @@ tr:hover {
 .scores-container button {
   margin: 0.25rem;
 }
+
+.progress-bar {
+  background-color: cornflowerblue;
+}

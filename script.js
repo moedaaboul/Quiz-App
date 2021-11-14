@@ -21,6 +21,7 @@ const timeContainer = document.querySelector(".time-container");
 const highscoreLink = document.querySelector(".highscore-link");
 const answerFeedback = document.querySelector(".answer-status");
 const scoreLine = document.querySelector(".score-line");
+const progressBar = document.querySelector(".progress-bar");
 
 startButton.addEventListener("click", start);
 
@@ -56,6 +57,7 @@ let listClicks = 0;
 function generateQuestion() {
   questionID.textContent = questions[count].id;
   questionText.textContent = questions[count].question;
+  progressBar.style.width = completion;
   answersLength = Object.keys(questions[count].answers).length;
   answerFeedback.textContent = feedback;
   listClicks = 0;
@@ -174,11 +176,14 @@ const gameOver = () => {
 };
 
 let scores = 0;
+let completion = 1 / questions.length;
 
 const nextQuestion = () => {
   count += 1;
+  completion = ((count + 1) / questions.length) * 100 + "%";
   ul.textContent = "";
   generateQuestion();
+  console.log(completion);
 };
 
 const submitFunction = function (event) {
