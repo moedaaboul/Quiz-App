@@ -40,10 +40,11 @@
       </div>
       <div class="answers-container">
         <ul class="answers"></ul>
+        <div class="answer-status"></div>
       </div>
     </main>
     <div class="end-container hidden">
-      <div class="submit-container dc-card hidden">
+      <div class="submit-container dc-card">
         <h2>Submit your score</h2>
         <form method="POST">
           <div class="input-group">
@@ -60,11 +61,13 @@
         </form>
       </div>
       <div class="scores-container hidden">
+        <!-- <div class="option-list"> -->
         <div>All done!</div>
         <div>Your final score is:</div>
         <div class="score"></div>
         <button id="reset">Clear history</button>
         <button id="go-back">Go back</button>
+        <!-- </div> -->
         <div class="high-scores">
           <table class="table">
             <thead>

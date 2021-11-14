@@ -19,6 +19,7 @@ const subHeader = document.querySelector(".sub-header");
 const questionContainer = document.querySelector(".question-container");
 const timeContainer = document.querySelector(".time-container");
 const highscoreLink = document.querySelector(".highscore-link");
+const answerFeedback = document.querySelector(".answer-status");
 
 startButton.addEventListener("click", start);
 
@@ -50,6 +51,7 @@ function generateQuestion() {
   questionID.textContent = questions[count].id;
   questionText.textContent = questions[count].question;
   answersLength = Object.keys(questions[count].answers).length;
+  answerFeedback.textContent = feedback;
   for (var i = 0; i < answersLength; i++) {
     var li = document.createElement("li");
     ul.appendChild(li);
@@ -59,13 +61,17 @@ function generateQuestion() {
   }
 }
 
+let feedback = "";
+
 function listListener(event) {
   var element = event.target;
   var content = element.textContent;
   if (questions[count].answers[content]) {
     scores += 5;
+    feedback = "Correct answer!";
   } else {
     timeLeft -= 5;
+    feedback = "Wrong answer!";
   }
 }
 
