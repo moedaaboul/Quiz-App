@@ -20,6 +20,7 @@ const questionContainer = document.querySelector(".question-container");
 const timeContainer = document.querySelector(".time-container");
 const highscoreLink = document.querySelector(".highscore-link");
 const answerFeedback = document.querySelector(".answer-status");
+const scoreLine = document.querySelector(".score-line");
 
 startButton.addEventListener("click", start);
 
@@ -32,8 +33,9 @@ function viewScores() {
     startContainer.setAttribute("style", "display:none;");
     main.classList.add("hidden");
     end.classList.remove("hidden");
+    scoreLine.classList.add("hidden");
     generateHighScores();
-    highscoreLink.removeEventListener;
+    // highscoreLink.removeEventListener;
     scoreClicks++;
   }
 }
@@ -47,35 +49,41 @@ function start() {
   countdown();
 }
 
+let listClicks = 0;
+
 function generateQuestion() {
   questionID.textContent = questions[count].id;
   questionText.textContent = questions[count].question;
   answersLength = Object.keys(questions[count].answers).length;
   answerFeedback.textContent = feedback;
+  listClicks = 0;
   for (var i = 0; i < answersLength; i++) {
     var li = document.createElement("li");
     ul.appendChild(li);
     li.innerHTML += Object.keys(questions[count].answers)[i];
-    li.addEventListener("click", listListener);
+    li.addEventListener("click", handleClick);
     li.addEventListener("click", runQuestions);
   }
 }
 
 let feedback = "";
 
-function listListener(event) {
-  var element = event.target;
-  var content = element.textContent;
-  if (questions[count].answers[content]) {
-    scores += 5;
-    feedback = "Correct answer!";
-  } else {
-    timeLeft -= 5;
-    feedback = "Wrong answer!";
+function handleClick(event) {
+  if (listClicks === 0) {
+    var element = event.target;
+    var content = element.textContent;
+    listClicks++;
+    if (questions[count].answers[content]) {
+      scores += 10;
+      feedback = "Correct answer!";
+    } else {
+      timeLeft -= 10;
+      feedback = "Wrong answer!";
+    }
   }
 }
 
-let timeLeft = 1000;
+let timeLeft = 60;
 
 function countdown() {
   // setInterval() method used to create a timer moving every 1 second
