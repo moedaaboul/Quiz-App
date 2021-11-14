@@ -1,9 +1,9 @@
+// Define variables using querySelector
 const startButton = document.querySelector(".btn");
 const startContainer = document.querySelector(".start-container");
 const main = document.querySelector(".main-container");
 const questionID = document.querySelector(".question-id");
 const questionText = document.querySelector(".question-text");
-const questionHeader = document.querySelector(".question-header");
 const timerEl = document.querySelector(".timer");
 const ul = document.querySelector("ul");
 const score = document.querySelector(".score");
@@ -16,19 +16,46 @@ const submitContainer = document.querySelector(".submit-container");
 const reload = document.querySelector("#go-back");
 const clearHistory = document.querySelector("#reset");
 const subHeader = document.querySelector(".sub-header");
-const questionContainer = document.querySelector(".question-container");
 const timeContainer = document.querySelector(".time-container");
 const highscoreLink = document.querySelector(".highscore-link");
 const answerFeedback = document.querySelector(".answer-status");
 const scoreLine = document.querySelector(".score-line");
 const progressBar = document.querySelector(".progress-bar");
 
+// Add event listener to start button on initial page
 startButton.addEventListener("click", start);
 
+// Stores how many clicks were made on the "view high scores page"
 let scoreClicks = 0;
 
+// Stored variable to ensure that no duplicate scores are recorded upon the list answer elements click
+let listClicks = 0;
+
+// variable sets timeLeft when the clock starts
+let timeLeft = 60;
+
+// global timeInterval variable stored to allow clearing outside of countdown function
+let timeInterval = 0;
+
+//  count variable to locate the current order of questions
+let count = 0;
+
+// scores variable initialed as zero
+let scores = 0;
+
+// variable to whether latest answer is correct or false
+let feedback = "";
+
+// contestant variable to store current contestant
+let contestant = "";
+
+// scoreArray to store all historical scores saved under local storage
+let scoreArray = [];
+
+// Adds event listener to the highscore link to view score history
 highscoreLink.addEventListener("click", viewScores);
 
+// Enables viewScores function upon the highscorelink click
 function viewScores() {
   if (scoreClicks === 0) {
     startContainer.setAttribute("style", "display:none;");
@@ -36,13 +63,13 @@ function viewScores() {
     end.classList.remove("hidden");
     scoreLine.classList.add("hidden");
     generateHighScores();
-    // highscoreLink.removeEventListener;
     scoreClicks++;
     clearInterval(timeInterval);
     timerEl.innerHTML = "-";
   }
 }
 
+// Enables start() function upon the start button click to show main question screens
 function start() {
   startContainer.setAttribute("style", "display:none;");
   subHeader.classList.remove("hidden");
@@ -52,8 +79,7 @@ function start() {
   countdown();
 }
 
-let listClicks = 0;
-
+// Enables generateQuestion() function to populate new Question and Answer choices based on count variable
 function generateQuestion() {
   questionID.textContent = questions[count].id;
   questionText.textContent = questions[count].question;
@@ -70,8 +96,7 @@ function generateQuestion() {
   }
 }
 
-let feedback = "";
-
+// function to handleClick upon answer click by updating score, feedback and answer
 function handleClick(event) {
   if (listClicks === 0) {
     var element = event.target;
@@ -87,12 +112,8 @@ function handleClick(event) {
   }
 }
 
-let timeLeft = 60;
-
-let timeInterval = 0;
-
+// countdown function using setInterval() method to commence the 1 second countdown from timeLeft var
 function countdown() {
-  // setInterval() method used to create a timer moving every 1 second
   timeInterval = setInterval(function () {
     timeLeft--;
     timerEl.innerHTML = timeLeft;
@@ -104,6 +125,7 @@ function countdown() {
   }, 1000);
 }
 
+// global questions variable that stores all questions, answers, and whether the answer is truthy in an object format
 const questions = [
   {
     id: 1,
@@ -127,8 +149,8 @@ const questions = [
     answers: {
       "numbers and strings": false,
       "other arrays": false,
-      booleans: true,
-      "all of the above": false,
+      booleans: false,
+      "all of the above": true,
     },
   },
   {
@@ -149,14 +171,13 @@ const questions = [
     answers: {
       JavaScript: false,
       "terminal /bash": false,
-      "for loops": true,
-      "console.log": false,
+      "for loops": false,
+      "console.log": true,
     },
   },
 ];
 
-let count = 0;
-
+// runQuestions function to trigger a stop effect by reseting time if number of questions is exceeded
 const runQuestions = () => {
   if (count >= questions.length - 1) {
     timeLeft = 0;
@@ -165,9 +186,7 @@ const runQuestions = () => {
   }
 };
 
-let contestant = "";
-let scoreArray = [];
-
+// gameOverfunction to hide main screen and unhide end container that shows sumbit page
 const gameOver = () => {
   main.classList.add("hidden");
   end.classList.remove("hidden");
@@ -175,9 +194,10 @@ const gameOver = () => {
   score.textContent = scores;
 };
 
-let scores = 0;
+// completion variable to reflect progress in the progress bar
 let completion = 1 / questions.length;
 
+// next question function is a question counter by adding one to the count va
 const nextQuestion = () => {
   count += 1;
   completion = ((count + 1) / questions.length) * 100 + "%";
@@ -186,6 +206,7 @@ const nextQuestion = () => {
   console.log(completion);
 };
 
+// submitFunction function to the submit form button listener to get and store new scores
 const submitFunction = function (event) {
   event.preventDefault();
 
@@ -209,12 +230,10 @@ const submitFunction = function (event) {
 
 submitButton.addEventListener("click", submitFunction);
 
+// Generates high scores from local storage
 const generateHighScores = () => {
-  let storedObject = JSON.parse(localStorage.getItem("scoreList"));
+  let storedObject = JSON.parse(localStorage.getItem("scoreList")) || [];
 
-  // if (storedObject !== null) {
-  //   scoreArray = storedObject;
-  // }
   console.log(storedObject);
 
   // storedObject.forEach(function (value, index) {});
@@ -237,16 +256,17 @@ const generateHighScores = () => {
     tr.appendChild(userScore);
     tableSection.appendChild(tr);
   });
-
   submitContainer.classList.add("hidden");
   finalScores.classList.remove("hidden");
   scoreClicks++;
 };
 
+// reload functionality enabled upon the "go-back" click
 reload.addEventListener("click", function () {
   location.reload();
 });
 
+// clear history functionality enabled upon the "clear-history" click
 clearHistory.addEventListener("click", function () {
   window.localStorage.removeItem("scoreList");
   highscores.classList.add("hidden");
