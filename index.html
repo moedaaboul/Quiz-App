@@ -8,20 +8,29 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <header class="header-container">
+      <h2 class="highscore-link">View High Scores</h2>
+      <h1 class="sub-header hidden">Introduction to JavaScript</h1>
+      <div class="time-container hidden">
+        <h2>Time left:</h2>
+        <div class="timer"></div>
+      </div>
+    </header>
     <div class="start-container">
-      <button class="btn">Start</button>
+      <div class="wrapper dc-card">
+        <h1>Coding Quiz Challenge</h1>
+        <p>
+          Try to answer the following code-related questions within the time
+          limit.<br /><br />
+          Keep in mind that incorrect answers will penalise your scoretime by 5
+          seconds! <br /><br />
+          Also note that each correct answer will increase your score by 5
+          points!
+        </p>
+        <button class="btn">Start Quiz</button>
+      </div>
     </div>
     <main class="main-container hidden">
-      <header class="header-container">
-        <div class="highscore-container">
-          <h2 class="highscore-link">View High Scores</h2>
-        </div>
-        <h1>Introduction to JavaScript</h1>
-        <div class="time-container">
-          <h2>Time left:</h2>
-          <div class="timer"></div>
-        </div>
-      </header>
       <div class="question-container">
         <div class="question">
           <div class="question-header">Question:</div>
@@ -34,8 +43,8 @@
       </div>
     </main>
     <div class="end-container hidden">
-      <div class="submit-container hidden">
-        <h2>Sign Up</h2>
+      <div class="submit-container dc-card hidden">
+        <h2>Submit your score</h2>
         <form method="POST">
           <div class="input-group">
             <label for="user">Enter initials</label>
@@ -47,7 +56,7 @@
             />
           </div>
           <div id="msg"></div>
-          <button id="submit">Submit</button>
+          <button id="submit"><span>Submit</span></button>
         </form>
       </div>
       <div class="scores-container hidden">

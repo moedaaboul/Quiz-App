@@ -15,11 +15,32 @@ const finalScores = document.querySelector(".scores-container");
 const submitContainer = document.querySelector(".submit-container");
 const reload = document.querySelector("#go-back");
 const clearHistory = document.querySelector("#reset");
+const subHeader = document.querySelector(".sub-header");
+const questionContainer = document.querySelector(".question-container");
+const timeContainer = document.querySelector(".time-container");
+const highscoreLink = document.querySelector(".highscore-link");
 
 startButton.addEventListener("click", start);
 
+let scoreClicks = 0;
+
+highscoreLink.addEventListener("click", viewScores);
+
+function viewScores() {
+  if (scoreClicks === 0) {
+    startContainer.setAttribute("style", "display:none;");
+    main.classList.add("hidden");
+    end.classList.remove("hidden");
+    generateHighScores();
+    highscoreLink.removeEventListener;
+    scoreClicks++;
+  }
+}
+
 function start() {
   startContainer.setAttribute("style", "display:none;");
+  subHeader.classList.remove("hidden");
+  timeContainer.classList.remove("hidden");
   main.classList.remove("hidden");
   generateQuestion();
   countdown();
@@ -48,7 +69,7 @@ function listListener(event) {
   }
 }
 
-let timeLeft = 30;
+let timeLeft = 1000;
 
 function countdown() {
   // setInterval() method used to create a timer moving every 1 second
@@ -142,7 +163,7 @@ const nextQuestion = () => {
   generateQuestion();
 };
 
-submitButton.addEventListener("click", function (event) {
+const submitFunction = function (event) {
   event.preventDefault();
 
   let contestant = document.querySelector("#user").value;
@@ -161,7 +182,9 @@ submitButton.addEventListener("click", function (event) {
   scoreArray.push(scoreList);
   localStorage.setItem("scoreList", JSON.stringify(scoreArray));
   generateHighScores();
-});
+};
+
+submitButton.addEventListener("click", submitFunction);
 
 const generateHighScores = () => {
   let storedObject = JSON.parse(localStorage.getItem("scoreList"));
@@ -194,6 +217,7 @@ const generateHighScores = () => {
 
   submitContainer.classList.add("hidden");
   finalScores.classList.remove("hidden");
+  scoreClicks++;
 };
 
 reload.addEventListener("click", function () {
@@ -202,5 +226,5 @@ reload.addEventListener("click", function () {
 
 clearHistory.addEventListener("click", function () {
   window.localStorage.removeItem("scoreList");
-  // finalScores.classList.add("hidden");
+  highscores.classList.add("hidden");
 });
