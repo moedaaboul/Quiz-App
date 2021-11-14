@@ -36,7 +36,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .wrapper {
@@ -68,7 +68,7 @@ body {
 
 .question-container,
 .answers-container {
-  margin: 5rem;
+  margin: 2rem;
 }
 
 .answers-container li {

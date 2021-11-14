@@ -37,6 +37,8 @@ function viewScores() {
     generateHighScores();
     // highscoreLink.removeEventListener;
     scoreClicks++;
+    clearInterval(timeInterval);
+    timerEl.innerHTML = "-";
   }
 }
 
@@ -85,9 +87,11 @@ function handleClick(event) {
 
 let timeLeft = 60;
 
+let timeInterval = 0;
+
 function countdown() {
   // setInterval() method used to create a timer moving every 1 second
-  let timeInterval = setInterval(function () {
+  timeInterval = setInterval(function () {
     timeLeft--;
     timerEl.innerHTML = timeLeft;
     if (timeLeft <= 0) {
