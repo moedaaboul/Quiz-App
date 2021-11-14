@@ -1,10 +1,13 @@
+/* Imports google fonts for styling*/
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;300;400;500;700;800&family=Source+Sans+Pro:wght@300;400;700&display=swap");
 
+/*sets google font-size*/
 html,
 body {
   font-size: 16px;
 }
 
+/*sets headers font size and weight*/
 h1,
 h2,
 .timer {
@@ -13,32 +16,30 @@ h2,
   font-family: "Source Sans Pro", sans-serif;
 }
 
+/*resets margin and padding across all*/
 * {
   margin: 0;
   padding: 0;
-  /* box-sizing: border-box; */
 }
 
+/*sets background theme colour*/
 body {
   background-color: rgb(247, 243, 235);
 }
 
-.question {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
+/*flex styling to align and/or justify content*/
 .highscore-link h2 {
   justify-self: flex-start;
 }
 
+/*flex styling to align and/or justify content*/
 .start-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* height: 100vh; */
 }
 
+/*flex styling to align and/or justify content*/
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -47,30 +48,36 @@ body {
   max-width: 60vh;
 }
 
+/*flex styling to align and/or justify content*/
 .sub-header {
   display: flex;
   flex-direction: space-around;
 }
 
+/*flex styling to align and/or justify content*/
 .header-container {
   display: flex;
   justify-content: space-between;
 }
 
+/*flex styling to align and/or justify content*/
 .time-container {
   display: flex;
   margin-right: 1rem;
 }
 
+/*timer styling to add some margin aside the header block*/
 .timer {
   margin-left: 0.5rem;
 }
 
+/*main screen styling to add some margin to question and answer containers*/
 .question-container,
 .answers-container {
   margin: 2rem;
 }
 
+/*styles answers mutliple choice list */
 .answers-container li {
   border: 0.1rem solid black;
   margin: 0.5rem;
@@ -82,20 +89,25 @@ body {
   font-family: "JetBrains Mono", monospace;
 }
 
+/*styles answers mutliple choice list with hover effect */
 .answers-container li:hover {
   opacity: 0.5;
   font-size: bold;
-  background-color: rgb(6, 189, 252);
+  background-color: rgb(6, 189, 252); /*blue*/
 }
 
+/*sets flex direction to column on scores container*/
 .scores-container {
   display: flex;
   flex-direction: column;
 }
 
+/*flex styling to align and/or justify content*/
 .question {
   display: flex;
   margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .question-id {
@@ -108,11 +120,11 @@ body {
   font-family: "Source Sans Pro", sans-serif;
 }
 
+/*flex styling to align and/or justify content*/
 .end-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   height: 100vh;
 }
 
@@ -129,6 +141,7 @@ body {
   margin-bottom: 20px;
 }
 
+/*label styling to submit scores button under*/
 label {
   border: 0;
   display: block;
@@ -140,6 +153,8 @@ label {
   padding: 0;
   width: 100%;
 }
+
+/*styles input under the submit scores container*/
 
 input {
   font-size: 16px;
@@ -153,7 +168,6 @@ input {
   box-sizing: border-box;
   display: inline-block;
   font-family: Arial;
-  font-family: Studio-Feixen-Sans;
   margin: 0;
   vertical-align: baseline;
   -webkit-appearance: none;
@@ -163,6 +177,7 @@ input {
   margin-bottom: 15px;
 }
 
+/*styles the submit button under the submit scores container*/
 #submit {
   display: inline-flex;
   justify-content: center;
@@ -177,44 +192,40 @@ input {
   transition: 0.15s;
   border-color: #03ef62;
   color: black;
-  background-color: #03ef62;
+  background-color: #03ef62; /*green*/
   padding: 0 15 px;
   margin-top: 24 px;
   width: 100%;
 }
 
+/*IMPORTANT class used to hide content for interactivity*/
 .hidden {
   display: none;
 }
 
+/*Adds pointer cursos to the view scores link under the header*/
 .highscore-link:hover {
   cursor: pointer;
 }
 
-p,
-h1 {
+/*Styles paragraph under the first start-container*/
+p {
   margin-bottom: 3rem;
 }
 
+/*Styles h1 under the first start-container*/
 h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
 }
 
+/*styles all buttons except submit button*/
 .btn {
-  /* position: center;
-  display: block; */
-  /* margin: 0 auto; */
   padding: 1.6em 5em;
-  /* max-width: 20em; */
   font-size: 1rem;
   line-height: 1;
-  /* text-align: center; */
-  /* text-decoration: none; */
   background-color: #03ef62;
   border-radius: 3px;
-  /* box-shadow: inset 0 0 7px 0 rgba(white, 0.5);
-  background-image: (linear-gradient(#5fc1ff 0%, #0088de 100%)); */
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -234,33 +245,7 @@ h1 {
   width: 100%;
 }
 
-#button {
-  margin-top: 10px;
-}
-
-/* .table {
-  width: 40%;
-  margin-bottom: 1rem;
-  color: #212529;
-  justify-content: center;
-}
-
-.table td,
-.table th {
-  padding: 1rem;
-  vertical-align: top;
-  border-top: 1px solid #dee2e6;
-}
-.table thead th {
-  vertical-align: bottom;
-  border-bottom: 2px solid #dee2e6;
-}
-
-thead {
-  background-color: #009879;
-  color: #fff;
-  padding: 2px;
-} */
+/*Styles scores table with name and score results*/
 
 table {
   border-collapse: collapse;
@@ -284,6 +269,7 @@ tr:hover {
   background: #d1d1d1;
 }
 
+/* Styling card that backgrounds main buttons */
 .dc-card {
   background-color: #ffffff;
   border-radius: 4px;
@@ -292,6 +278,7 @@ tr:hover {
   position: relative;
 }
 
+/*High scores table section styling*/
 .high-scores {
   background-color: #ffffff;
   border-radius: 4px;
@@ -301,10 +288,12 @@ tr:hover {
   margin-top: 0.5rem;
 }
 
+/*Adds margin to clear history and go back buttons*/
 .scores-container button {
   margin: 0.25rem;
 }
 
+/* Progress bar background color fill  */
 .progress-bar {
   background-color: cornflowerblue;
 }

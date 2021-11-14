@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!--Header section that includes view high scores link and timer-->
     <header class="header-container">
       <h2 class="highscore-link">View High Scores</h2>
       <h1 class="sub-header hidden">Introduction to JavaScript</h1>
@@ -16,6 +17,7 @@
         <div class="timer"></div>
       </div>
     </header>
+    <!--Start container that inlcudes app description and start button-->
     <div class="start-container">
       <div class="wrapper dc-card">
         <h1>Coding Quiz Challenge</h1>
@@ -30,10 +32,12 @@
         <button class="btn">Start Quiz</button>
       </div>
     </div>
+    <!--Main container that both questions and answers containers-->
     <main class="main-container hidden">
       <div class="border">
         <div class="progress-bar" style="height: 24px; width: 20%"></div>
       </div>
+      <!--questions container that includes question id and addresses question-->
       <div class="question-container">
         <div class="question">
           <div class="question-header">Question:</div>
@@ -41,11 +45,13 @@
         </div>
         <div class="question-text"></div>
       </div>
+      <!--answers container that lists question answers-->
       <div class="answers-container">
         <ul class="answers"></ul>
         <div class="answer-status"></div>
       </div>
     </main>
+    <!--end container to submit initials/name and scores-->
     <div class="end-container hidden">
       <div class="submit-container dc-card">
         <h2>Submit your score</h2>
@@ -63,6 +69,7 @@
           <button id="submit"><span>Submit</span></button>
         </form>
       </div>
+      <!--scores container to display scores and allow to go back and reset high scores-->
       <div class="scores-container hidden">
         <div>All done!</div>
         <div class="score-line">
