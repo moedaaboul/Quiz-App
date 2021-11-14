@@ -64,7 +64,7 @@ Additional features added over and above the requirements include the following:
 - Go back option to start the quiz again
 - Feedback following each answer whether the choice was correct or not
 
-Should note that the App prevents duplicate score entries from erratic speedy click entries.
+Should note that the App also prevents duplicate score entries from erratic speedy click entries.
 
 ## Contact
 
