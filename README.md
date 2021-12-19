@@ -1,7 +1,7 @@
 # Quiz-App
 
 > Quiz-App
-> Live demo [_here_](https://moedaaboul.github.io/Quiz-App/).
+> Live demo [_here_](https://moedaaboul.github.io/quiz-app/).
 
 ## Table of Contents
 
