@@ -38,7 +38,8 @@ Goal is to create an interactive multiple-choice question coding challenge (Quiz
 
 The following image depicts the functionality expected of the webpage:
 
-![A user clicks through an interactive coding quiz, then enters initials to save the high score before resetting and starting over.](./images/demo.gif)
+![Quiz App Home page showing start functionality and link to high scores](./images/demo-1.png)
+![Question number 5 page showing previous answer has been answered correctly and highlighting test take selected choice for question 5 with time left being 19 seconds](./images/demo-2.png)
 
 ## Setup
 
